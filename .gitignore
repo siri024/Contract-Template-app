@@ -1,0 +1,18 @@
+# Node
+node_modules/
+
+# Angular
+.angular/
+dist/
+out-tsc/
+
+# Mock API
+/mock-api/node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+__MACOSX/
+
+# VS Code
+.vscode/

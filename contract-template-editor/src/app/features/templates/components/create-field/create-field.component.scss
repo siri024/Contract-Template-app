@@ -1,0 +1,126 @@
+.field-builder {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: 14px;
+
+  h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+
+    &.single {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    background: #fff;
+    font-size: 14px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+    &:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+    }
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #374151;
+
+    input[type="checkbox"] {
+      width: auto;
+    }
+  }
+
+  button {
+    align-self: flex-start;
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: none;
+    background: #2563eb;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: #1d4ed8;
+    }
+
+    &:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    &.danger {
+      background: transparent;
+      color: #dc2626;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    margin: 8px 0;
+  }
+
+  .field-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .field-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px;
+    border-radius: 6px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+
+      .label {
+        font-weight: 500;
+        color: #111827;
+      }
+
+      .meta {
+        font-size: 12px;
+        color: #6b7280;
+      }
+    }
+  }
+
+  .hint {
+    font-size: 12px;
+    color: #6b7280;
+  }
+}

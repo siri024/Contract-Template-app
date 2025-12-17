@@ -1,0 +1,49 @@
+<div class="field-builder">
+  <h3>Add Field</h3>
+
+  <div class="row">
+    <input [(ngModel)]="draft.key" placeholder="Key (e.g. employeeName)" />
+    <input [(ngModel)]="draft.label" placeholder="Label" />
+  </div>
+
+  <div class="row">
+    <select [(ngModel)]="draft.type">
+      <option value="text">Text</option>
+      <option value="textarea">Textarea</option>
+      <option value="date">Date</option>
+      <option value="select">Select</option>
+      <option value="checkbox">Checkbox</option>
+    </select>
+
+    <label>
+      <input type="checkbox" [(ngModel)]="draft.required" />
+      Required
+    </label>
+  </div>
+
+  <div *ngIf="draft.type === 'select'" class="row single">
+    <input placeholder="Comma-separated options" [(ngModel)]="selectOptions" />
+  </div>
+
+  <button (click)="add()" [disabled]="!draft.key || !draft.label">
+    Add Field
+  </button>
+
+  <hr />
+
+  <h3>Fields</h3>
+
+  <div class="field-list">
+    <div class="field-item" *ngFor="let f of schema">
+      <div class="info">
+        <span class="label">{{ f.label }}</span>
+        <span class="meta">
+          {{ f.type }}
+          <span *ngIf="f.required">• required</span>
+        </span>
+      </div>
+
+      <button class="danger" (click)="remove(f.key)">Remove</button>
+    </div>
+  </div>
+</div>

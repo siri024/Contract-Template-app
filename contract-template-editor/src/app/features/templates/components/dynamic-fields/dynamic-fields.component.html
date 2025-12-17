@@ -1,0 +1,61 @@
+<div class="fields">
+  <div class="field" *ngFor="let f of schema">
+    <label class="lbl"
+      >{{ f.label }} <span *ngIf="f.required" class="req">*</span></label
+    >
+
+    <!-- text -->
+    <input
+      *ngIf="f.type === 'text'"
+      class="ctrl"
+      type="text"
+      [formControl]="ctrl(f.key)"
+    />
+
+    <!-- textarea -->
+    <textarea
+      *ngIf="f.type === 'textarea'"
+      class="ctrl ta"
+      [formControl]="ctrl(f.key)"
+    ></textarea>
+
+    <!-- checkbox -->
+    <label *ngIf="f.type === 'checkbox'" class="check">
+      <input type="checkbox" [formControl]="ctrl(f.key)" />
+      <span>Yes</span>
+    </label>
+
+    <!-- date -->
+    <app-datepicker-overlay
+      *ngIf="f.type === 'date'"
+      [value]="ctrl(f.key).value ?? ''"
+      (valueChange)="ctrl(f.key).setValue($event)"
+    ></app-datepicker-overlay>
+
+    <!-- select / multiselect -->
+    <div
+      *ngIf="f.type === 'select' || f.type === 'multiselect'"
+      class="select-wrap"
+    >
+      <select
+        class="ctrl"
+        [multiple]="f.type === 'multiselect'"
+        (change)="onSelect(f, $event)"
+      >
+          <option *ngFor="let option of options[f.key]" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+    </div>
+
+    <!-- errors -->
+    <div class="err" *ngIf="ctrl(f.key).touched && ctrl(f.key).invalid">
+      <div *ngIf="ctrl(f.key).errors?.['required']">Required</div>
+      <div *ngIf="ctrl(f.key).errors?.['minlength']">Too short</div>
+      <div *ngIf="ctrl(f.key).errors?.['maxlength']">Too long</div>
+      <div *ngIf="ctrl(f.key).errors?.['pattern']">Invalid format</div>
+      <div *ngIf="ctrl(f.key).errors?.['minDate']">Date is too early</div>
+      <div *ngIf="ctrl(f.key).errors?.['maxDate']">Date is too late</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="page">
+  <div class="page-header">
+    <h1>Templates</h1>
+
+    <div class="create">
+      <input [(ngModel)]="newTitle" placeholder="New template title" />
+      <button class="primary" (click)="create()">Create</button>
+    </div>
+  </div>
+
+  <div class="grid" *ngIf="templates.length; else empty">
+    <div class="card" *ngFor="let t of templates">
+      <div class="card-top">
+        <a class="title" [routerLink]="['/templates', t.id]">{{ t.title }}</a>
+        <span class="badge" [class.published]="t.status === 'PUBLISHED'">{{
+          t.status
+        }}</span>
+      </div>
+
+      <div class="meta">Updated: {{ t.updatedAt | date : "medium" }}</div>
+
+      <div class="actions">
+        <button (click)="startRename(t)">Rename</button>
+        <button class="danger" (click)="remove(t.id)">Delete</button>
+      </div>
+
+      <div *ngIf="renamingId === t.id" class="rename">
+        <input [(ngModel)]="renameTitle" placeholder="New title" />
+        <button class="primary" (click)="confirmRename(t.id)">Save</button>
+        <button (click)="cancelRename()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #empty>
+    <div class="empty">No templates yet. Create one above.</div>
+  </ng-template>
+</div>

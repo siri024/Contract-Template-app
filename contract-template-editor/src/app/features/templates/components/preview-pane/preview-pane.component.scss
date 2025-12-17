@@ -1,0 +1,36 @@
+.preview-pane {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.header {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 14px;
+  color: #111827;
+}
+
+.subtitle {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.content {
+  padding: 16px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #111827;
+}
+
+.content p {
+  margin: 0 0 12px;
+}

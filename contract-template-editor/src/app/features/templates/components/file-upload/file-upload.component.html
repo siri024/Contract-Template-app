@@ -1,0 +1,14 @@
+<div class="upload">
+  <div class="top">
+    <div class="title">File upload (mock)</div>
+    <button (click)="start()" [disabled]="uploading">Upload</button>
+  </div>
+
+  <div class="bar" *ngIf="uploading || progress === 100">
+    <div class="fill" [style.width.%]="progress"></div>
+  </div>
+
+  <div class="meta" *ngIf="url">
+    URL: <span class="mono">{{ url }}</span>
+  </div>
+</div>

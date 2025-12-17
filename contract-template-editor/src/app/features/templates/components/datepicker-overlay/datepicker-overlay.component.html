@@ -1,0 +1,10 @@
+<div class="date-input">
+  <label *ngIf="label" class="lbl">{{ label }}</label>
+  <input
+    #origin
+    type="date"
+    [value]="value ?? ''"
+    (focus)="open()"
+    (input)="manual($event)"
+  />
+</div>

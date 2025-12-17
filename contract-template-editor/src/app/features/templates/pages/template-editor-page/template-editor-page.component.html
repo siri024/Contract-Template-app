@@ -1,0 +1,92 @@
+<div class="page" *ngIf="loaded; else loading">
+  <div class="topbar">
+    <a routerLink="/templates" class="back">← Templates</a>
+
+    <div class="right">
+      <span class="status" [class.published]="template?.published">{{
+        template?.published ? "PUBLISHED" : "DRAFT"
+      }}</span>
+      <button class="ghost" (click)="togglePreview()">
+        {{ preview ? "Hide Preview" : "Show Preview" }}
+      </button>
+      <button class="primary" (click)="publish()">Publish</button>
+    </div>
+  </div>
+
+  <div class="layout">
+    <!-- LEFT -->
+    <div class="left">
+      <div class="card">
+        <div class="card-head">Template Meta</div>
+        <div class="card-body" [formGroup]="metaForm">
+          <label class="lbl">Title</label>
+          <input class="ctrl" formControlName="title" />
+          <div class="sub">Autosaves after typing stops.</div>
+        </div>
+      </div>
+
+      <div class="card editor-card">
+        <div class="card-head">Template Editor</div>
+        <div class="card-body" [formGroup]="metaForm">
+          <quill-editor
+            [modules]="quillModules"
+            [styles]="{ height: '260px' }"
+            formControlName="templateHtml"
+            theme="snow"
+            placeholder="Write contract template... "
+          ></quill-editor>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">Dynamic Fields</div>
+        <div class="card-body">
+          <app-dynamic-fields
+            [schema]="schema"
+            [form]="fieldsForm"
+            [initialValues]="template?.values ?? {}"
+            (valuesChange)="onValuesChange($event)"
+          ></app-dynamic-fields>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">Field Builder</div>
+        <div class="card-body">
+          <app-create-field
+            [schema]="schema"
+            (schemaChange)="onSchemaChange($event)"
+          >
+          </app-create-field>
+        </div>
+      </div>
+      <app-file-upload (urlReady)="onUploadUrl($event)"></app-file-upload>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="rightPane" *ngIf="preview">
+      <app-preview-pane
+        [html]="metaForm.value.templateHtml"
+        [values]="fieldsForm.value"
+      ></app-preview-pane>
+      <div class="card">
+        <div class="card-head">Validation</div>
+        <div class="card-body">
+          <button (click)="markAllTouched()">Validate</button>
+          <div class="vline" [class.bad]="!isValid()">
+            Form is {{ isValid() ? "VALID " : "INVALID " }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="savehint" *ngIf="saving">Saving…</div>
+  <div class="savehint ok" *ngIf="!saving && lastSavedAt">
+    Saved: {{ lastSavedAt | date : "mediumTime" }}
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="loading">Loading template…</div>
+</ng-template>
